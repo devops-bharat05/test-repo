@@ -8,11 +8,11 @@ pipeline {
         stage('Build') {
             steps {
                 // Install dependencies in a virtual environment
-                sh 'sudo apt install python3-pip'
-                sh 'sudo apt install python3-virtualenv'
+                sh 'sudo apt install python3-pip -y'
+                sh 'sudo apt install python3-virtualenv -y'
 				sh """	virtualenv venv
-						source venv/bin/activate
-						pip install Flask
+					source venv/bin/activate
+					pip install Flask
 				   """
             }
         }
@@ -27,7 +27,7 @@ pipeline {
                 // Deploy to staging (example: simple gunicorn command)
                 script {
                     sh """
-							nohup gunicorn -w 5 -b 0.0.0.0:5000 app:app &
+			nohup gunicorn -w 5 -b 0.0.0.0:5000 app:app &
                     """
                 }
             }
